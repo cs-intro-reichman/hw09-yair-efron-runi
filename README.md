@@ -9,7 +9,7 @@ Implement a text generation program using a Markov chain language model. The pro
 
 1. **Stage 1**: Complete the `List.java` class - a custom linked list for managing character data
 2. **Stage 2**: Implement training methods in `LanguageModel.java` - build the probability model from text
-3. **Stage 3**: Implement text generation in `LanguageModel.java` - generate random text based on the trained model
+3. **Stage 3**: Implement te. xt generation in `LanguageModel.java` - generate random text based on the trained model
 
 ## Files to Submit
 
