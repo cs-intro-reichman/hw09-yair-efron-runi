@@ -22,9 +22,9 @@ public class LanguageModel {
         CharDataMap = new HashMap<String, List>();
     }
 
-    /** Constructs a language model with he given window length.
+    /** Constructs a language model with the given window length.
      * Generating texts from this model multiple times will produce
-     * different random texts. Good for production. */
+     * different rando. m texts. Good for production. */
     public LanguageModel(int windowLength) {
         this.windowLength = windowLength;
         randomGenerator = new Random();
@@ -56,22 +56,18 @@ public class LanguageModel {
     // Computes and sets the probabilities (p and cp fields) of all the
 	// characters in the given list. */
 	void calculateProbabilities(List probs) {				
-		int numOfLetters = 0;
-        CharData[] arr = probs.toArray();
-        for (int i = 0 ; i < arr.length; i ++) {
-            numOfLetters = numOfLetters + arr[i].count;
-        }
-        for (int i = 0 ; i < arr.length; i ++) {
-            arr[i].p = (double) arr[i].count / numOfLetters;
-        }
-        for (int i = 0 ; i < arr.length; i ++) {
-            if (i == 0) {
-                arr[i].cp = arr[i].p;
-            } else {
-                arr[i].cp = arr[i - 1].cp + arr[i].p;
-            }
-        }
-
+		int totalCount = 0;
+        for (int i = 0; i < probs.size(); i++) {
+        totalCount += probs.get(i).count;
+    }
+    double cumulativeProb = 0.0;
+    for (int i = 0; i < probs.size(); i++) {
+        CharData cd = probs.get(i);
+        cd.p = (double) cd.count / totalCount;
+        cumulativeProb += cd.p;
+        cd.cp = cumulativeProb;
+    }
+        
 	}
 
     // Returns a random character from the given probabilities list.
@@ -120,4 +116,20 @@ public class LanguageModel {
 		return str.toString();
 	}
 
+    public static void main(String[] args) {
+		int windowLength = Integer.parseInt(args[0]);
+        String initialText = args[1];
+        int generatedTextLength = Integer.parseInt(args[2]);
+        Boolean randomGeneration = args[3].equals("random");
+        String fileName = args[4];
+    
+        LanguageModel lm;
+        if (randomGeneration)
+        lm = new LanguageModel(windowLength);
+        else
+        lm = new LanguageModel(windowLength, 20);
+        lm.train(fileName);
+        
+        System.out.println(lm.generate(initialText, generatedTextLength));
+    }
 }
