@@ -34,12 +34,11 @@ public class List {
         Node firstnd = new  Node (data, first);
         first = firstnd;
         size++;
-        
     }
     
     /** GIVE Textual representation of this list. */
     public String toString() {
-        Node current = first;
+    Node current = first;
     String ret = "("; 
     while (current != null) {
         ret = ret + current.cp.toString();
@@ -49,7 +48,6 @@ public class List {
         current = current.next;
     }
     return ret + ")";
-       
     }
 
     /** Returns the index of the first CharData object in this list
@@ -65,7 +63,6 @@ public class List {
             index ++;
             current = current.next;
         }
-        
         return -1;
     }
 
@@ -73,8 +70,7 @@ public class List {
      *  increments its counter. Otherwise, adds a new CharData object with the
      *  given chr to the beginning of this list. */
     public void update(char chr) {
-       
-         Node current = first;
+        Node current = first;
         boolean checker = true;
         while (current != null) {
             if (current.cp.equals(chr)) {
@@ -114,7 +110,7 @@ public class List {
      *  If the index is negative or is greater than the size of this list, 
      *  throws an IndexOutOfBoundsException. */
     public CharData get(int index) {
-          if (index < 0 || index >= size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index Out Of Bounds: " + index);
         }
 
